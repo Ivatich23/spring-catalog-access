@@ -3,9 +3,12 @@ package com.epam.rd.autotasks.catalogaccess;
 import com.epam.rd.autotasks.catalogaccess.domain.Employee;
 import com.epam.rd.autotasks.catalogaccess.domain.Position;
 import com.google.common.collect.ImmutableList;
+import org.springframework.http.HttpHeaders;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,7 +25,7 @@ public class SalaryController {
     }
 
     @GetMapping(value = "/my")
-    public BigDecimal mySalary() {
+    public BigDecimal mySalary(@RequestHeader HttpHeaders httpHeaders) {
         return BigDecimal.ZERO;
     }
 

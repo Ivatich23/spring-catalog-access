@@ -1,5 +1,6 @@
 package com.epam.rd.autotasks.catalogaccess;
 
+import com.epam.rd.autotasks.catalogaccess.domain.Position;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,6 +17,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http
+                .csrf()
+                .disable()
+                .authorizeRequests()
+                .antMatchers(HttpMethod.GET,"/employees").hasAnyRole(EMPLOYEE,MANAGER)
+                .antMatchers(HttpMethod.GET,"/employees/{id}").hasAnyRole(EMPLOYEE,MANAGER)
+                .antMatchers(HttpMethod.POST,"/employees").hasRole(MANAGER)
+                .antMatchers("/salaries").hasRole(MANAGER)
+                .antMatchers("/salaries/my").hasAnyRole(EMPLOYEE,MANAGER)
+                .antMatchers("/catalog").permitAll()
+        .and().formLogin().permitAll();
 
     }
 
